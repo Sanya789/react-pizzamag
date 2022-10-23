@@ -5,10 +5,7 @@ import Sort from './components/Sort';
 import './App.css';
 import './scss/app.scss';
 import PizzaBlock from './components/PizzaBlock';
-
-function Pizza(title, price, imageUrl) {
-  return `Цена: ${price}; Заголовок: ${title}`;
-}
+import pizzas from './assets/pizzas.json';
 
 function App() {
   return (
@@ -22,10 +19,9 @@ function App() {
           </div>
           <h2 class="content__title">Все пиццы</h2>
           <div class="content__items">
-            <PizzaBlock title="Мексиканская" price={500} />
-            <PizzaBlock title="Чизбургер-пицца" price="350" />
-            <PizzaBlock />
-            <PizzaBlock />
+            {pizzas.map((pizzaObject) => (
+              <PizzaBlock {...pizzaObject} />
+            ))}
           </div>
         </div>
       </div>
