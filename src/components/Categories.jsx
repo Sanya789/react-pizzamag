@@ -10,10 +10,15 @@ const onClickCategory = (index) => {
 const categories = ['Все','Мясные','Вегетарианская', 'Гриль','Острые','Закрытые']
   
 return (
-    <div class="categories">
+    <div className="categories">
       <ul>
         {categories.map((cat, index) => 
-        <li onClick={()=> onClickCategory(index)} className={activeIndex === index ? 'active' : ''}>{cat}</li>
+        <li 
+        key={index}
+        onClick={()=> onClickCategory(index)} 
+        className={activeIndex === index ? 'active' : ''}>
+          {cat}
+        </li>
         )}
       </ul>
     </div>

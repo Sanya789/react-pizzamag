@@ -6,18 +6,19 @@ export default function PizzaBlock({title, price, imageUrl, sizes,types}) {
 
   const typeNames = ['тонкое', 'традиционное']
   return (
-    <div class="pizza-block">
+    <div className="pizza-block">
     <img
-      class="pizza-block__image"
+      className="pizza-block__image"
       src={imageUrl}
       alt="Pizza"
     />
-    <h4 class="pizza-block__title">{title}</h4>
-    <div class="pizza-block__selector">
+    <h4 className="pizza-block__title">{title}</h4>
+    <div className="pizza-block__selector">
       <ul>
         {
         types.map((type)=>(
         <li 
+          key={type}
           onClick={() => setActiveType(type)}
           className={activeType === type ? 'active' : ''}>
           {typeNames[type]}
@@ -27,16 +28,14 @@ export default function PizzaBlock({title, price, imageUrl, sizes,types}) {
       <ul>
         {sizes.map((size,index) => 
         <li 
+        key={size}
         onClick={() => setActiveSize(index)}
         className={activeSize === index ? 'active' : ''}>{size} см.</li>)}
-        {/* <li class="active">26 см.</li>
-        <li>30 см.</li>
-        <li>40 см.</li> */}
       </ul>
     </div>
-    <div class="pizza-block__bottom">
-      <div class="pizza-block__price">от {price} ₽</div>
-      <button class="button button--outline button--add">
+    <div className="pizza-block__bottom">
+      <div className="pizza-block__price">от {price} ₽</div>
+      <button className="button button--outline button--add">
         <svg
           width="12"
           height="12"
