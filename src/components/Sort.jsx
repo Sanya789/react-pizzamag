@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Sort() {
 const [openPopup, setOpenPopup] = React.useState(false)
-const [selectedSort, setSelectedSort] = React.useState(false)
+const [selectedSort, setSelectedSort] = React.useState(0)
 const list = ['популярности', 'цене','алфавиту'];
 const selectedSortName = list[selectedSort];
 const onClickSelectedSort = (index) =>{
