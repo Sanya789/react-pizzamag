@@ -1,14 +1,21 @@
-import React from "react";
+import React from 'react';
 
-export default function Sort() {
-const [openPopup, setOpenPopup] = React.useState(false)
-const [selectedSort, setSelectedSort] = React.useState(0)
-const list = ['популярности', 'цене','алфавиту'];
-const selectedSortName = list[selectedSort];
-const onClickSelectedSort = (index) =>{
-  setSelectedSort(index);
-  setOpenPopup(false)
-}
+export default function Sort({ value, onChangeSort }) {
+  const [openPopup, setOpenPopup] = React.useState(false);
+  // const [selectedSort, setSelectedSort] = React.useState(0)
+  const list = [
+    { name: 'популярности(desc)', sortProperty: 'rating' },
+    { name: 'популярности(asc)', sortProperty: '-rating' },
+    { name: 'цене(desc)', sortProperty: 'price' },
+    { name: 'цене(asc)', sortProperty: '-price' },
+    { name: 'алфавиту(desc)', sortProperty: 'title' },
+    { name: 'алфавиту(asc)', sortProperty: '-title' },
+  ];
+  // const selectedSortName = list[value].name;
+  const onClickSelectedSort = (index) => {
+    onChangeSort(index);
+    setOpenPopup(false);
+  };
 
   return (
     <div className="sort">
@@ -25,20 +32,22 @@ const onClickSelectedSort = (index) =>{
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={()=>setOpenPopup(!openPopup)}>{selectedSortName}</span>
+        <span onClick={() => setOpenPopup(!openPopup)}>{value.name}</span>
       </div>
-      {openPopup &&
-        (<div className="sort__popup">
-        <ul>
-        {list.map((name, index)=>(
-        <li 
-          key={index}
-          onClick={() => onClickSelectedSort(index)}
-          className={selectedSort === index ? 'active' : ''}
-          >{name}</li>))}
-        </ul>
-      </div>)
-      }
+      {openPopup && (
+        <div className="sort__popup">
+          <ul>
+            {list.map((obj, index) => (
+              <li
+                key={index}
+                onClick={() => onClickSelectedSort(obj)}
+                className={value.sortProperty === obj.sortProperty ? 'active' : ''}>
+                {obj.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
