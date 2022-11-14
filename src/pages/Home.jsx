@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +12,7 @@ import { Pagination } from '../components/Pagination/Pagination';
 import { SearchContext } from '../App';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { sortList } from '../components/Sort';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,12 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
+  const { items, status } = useSelector((state) => state.pizza);
+
   const sortType = sort.sortProperty;
 
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  // const [items, setItems] = React.useState([]);
+  // const [isLoading, setIsLoading] = React.useState(true);
   const { searchValue } = React.useContext(SearchContext);
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -32,23 +35,15 @@ const Home = () => {
   };
   // const [sortType, setSortType] = React.useState({ name: 'популярности', sortProperty: 'rating' });
 
-  const fetchPizzas = () => {
-    setIsLoading(true);
+  const getPizzas = async () => {
     const sortBy = sortType.replace('-', '');
     const order = sortType.includes('-') ? 'asc' : 'desc';
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue > 0 ? `&search=${searchValue}` : '';
-    axios
-      .get(
-        `https://635d6c8ab13fd8c8607d9d23.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+    dispatch(fetchPizzas({ sortBy, order, category, search, currentPage }));
   };
 
-//Если первого рендера еще не было, то проверяем URL-параметры и сохранем в редакс
+  //Если первого рендера еще не было, то проверяем URL-параметры и сохранем в редакс
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -62,7 +57,7 @@ const Home = () => {
     isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
 
-//Если произошел первый рендер, то проверяем URL-параметры и сохранем в редакс
+  //Если произошел первый рендер, то проверяем URL-параметры и сохранем в редакс
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -79,7 +74,6 @@ const Home = () => {
     }
   }, []);
 
-
   // Если был первый рендер, то заправшиваем пиццы
   React.useEffect(() => {
     // fetch(
@@ -93,10 +87,10 @@ const Home = () => {
     //     setIsLoading(false);
     //   });
     window.scrollTo(0, 0);
-    if (!isSearch.current) {
-      fetchPizzas();
-    }
-    isSearch.current = false;
+    // if (!isSearch.current) {
+    getPizzas();
+    // }
+    // isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
 
   const pizzas = items
@@ -118,7 +112,20 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+      {status === 'error' ? (
+        <div className='content__error-info'>
+          <h2>
+            Произошла ошибка <icon>😕</icon>
+          </h2>
+          <p>
+            Вероятней всего, пиццы не загрузились с сервера.
+            <br />
+            Попробуйте повторить попытку позже.
+          </p>
+        </div>
+      ) : (
+        <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
+      )}
       <Pagination currentPage={currentPage} onPageChange={onChangePage} />
     </>
   );
