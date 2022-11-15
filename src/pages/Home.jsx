@@ -1,7 +1,7 @@
 import React from 'react';
 // import axios from 'axios';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Categories from '../components/Categories';
@@ -9,7 +9,7 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { Pagination } from '../components/Pagination/Pagination';
-import { SearchContext } from '../App';
+import { SearchContext } from '../layouts/MainLayout';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { sortList } from '../components/Sort';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
@@ -101,7 +101,11 @@ const Home = () => {
         return false;
       }
     })
-    .map((pizzaObject) => <PizzaBlock key={pizzaObject.id} {...pizzaObject} />);
+    .map((pizzaObject) => (
+      <Link key={pizzaObject.id} to={`/pizza/${pizzaObject.id}`}>
+        <PizzaBlock  {...pizzaObject} />
+      </Link>
+    ));
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
@@ -113,7 +117,7 @@ const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === 'error' ? (
-        <div className='content__error-info'>
+        <div className="content__error-info">
           <h2>
             Произошла ошибка <icon>😕</icon>
           </h2>

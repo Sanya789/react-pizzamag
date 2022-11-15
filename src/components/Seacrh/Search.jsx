@@ -1,7 +1,7 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
-import { SearchContext } from '../../App';
+import { SearchContext } from '../../layouts/MainLayout';
 
 const Search = () => {
   const [value, setValue] = React.useState('');
