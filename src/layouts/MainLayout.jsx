@@ -4,7 +4,7 @@ import Header from '../components/Header';
 
 export const SearchContext = React.createContext('');
 
-const MainLayout = ({ children }) => {
+const MainLayout = () => {
   const [searchValue, setSearchValue] = React.useState('');
 
   return (
