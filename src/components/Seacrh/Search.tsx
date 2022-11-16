@@ -3,15 +3,16 @@ import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
 import { SearchContext } from '../../layouts/MainLayout';
 
-const Search = () => {
+const Search: React.FC = () => {
   const [value, setValue] = React.useState('');
-  const { setSearchValue } = React.useContext(SearchContext);
-  const inputRef = React.useRef();
+  const {setSearchValue} = React.useContext(SearchContext);  
+  
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
     setSearchValue('');
     setValue('');
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   const updateSearchValue = React.useCallback(
@@ -21,7 +22,7 @@ const Search = () => {
     [],
   );
 
-  const onChangeInput = (event) => {
+  const onChangeInput = (event: any) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };

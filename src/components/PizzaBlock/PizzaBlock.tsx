@@ -2,12 +2,23 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
 
-export default function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
+const typeNames = ['тонкое', 'традиционное'];
+
+type PizzaBlockProps = {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string; 
+  sizes: number[]; 
+  types: number[];
+  rating: number;
+}
+
+ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const cartItem = useSelector((state: any) => state.cart.items.find((obj: { id: string; }) => obj.id === id));
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
-  const typeNames = ['тонкое', 'традиционное'];
 
   const addedCount = cartItem ? cartItem.count : 0;
 
@@ -71,3 +82,5 @@ export default function PizzaBlock({ id, title, price, imageUrl, sizes, types })
     </div>
   );
 }
+
+export default PizzaBlock;
