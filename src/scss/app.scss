@@ -36,7 +36,7 @@ body {
     text-align: center;
     margin-bottom: 60px;
     h2 {
-    font-size: 32px;
+      font-size: 32px;
       font-weight: 700;
     }
     p {
@@ -141,7 +141,7 @@ body {
       margin-right: 10px;
       path {
         stroke: $black;
-        stroke-width: 1.9;
+        strokewidth: 1.9;
       }
     }
   }
@@ -334,7 +334,7 @@ body {
           margin-right: 12px;
           path {
             fill: transparent;
-            stroke-width: 2;
+            strokewidth: 2;
           }
         }
       }

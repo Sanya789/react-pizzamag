@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice';
+import { addItem, minusItem, removeItem, TCartItem } from '../../redux/slices/cartSlice';
 
 type CartItemProps = {
   id: string;
@@ -18,7 +18,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, title, type, price, size, count
     dispatch(
       addItem({
         id,
-      }),
+      } as TCartItem),
     );
   };
 
