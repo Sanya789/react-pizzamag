@@ -25,9 +25,12 @@ const Home: React.FC = () => {
   const sortType = sort.sortProperty;
 
   const { searchValue } = React.useContext(SearchContext);
-  const onChangeCategory = (id: number) => {
+
+
+  const onChangeCategory = React.useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
+
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
@@ -90,7 +93,7 @@ const Home: React.FC = () => {
       }
     })
     .map((pizzaObject: any ) => (
-        <PizzaBlock  {...pizzaObject} />
+        <PizzaBlock key={pizzaObject.id} {...pizzaObject} />
     ));
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
@@ -98,7 +101,7 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="content__top">
-        <Categories value={categoryId} onChangeCategory={(id: number) => onChangeCategory(id)} />
+        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>

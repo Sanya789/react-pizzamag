@@ -21,7 +21,9 @@ export const sortList: SortItem[] = [
   { name: 'алфавиту(asc)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
-export default function Sort() {
+
+
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state: TRootState) => state.filter.sort);
   const sortRef = React.useRef<HTMLDivElement>(null);
@@ -80,3 +82,5 @@ export default function Sort() {
     </div>
   );
 }
+
+export default Sort;
