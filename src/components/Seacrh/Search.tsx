@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
 import { SearchContext } from '../../layouts/MainLayout';
 
-const Search: React.FC = () => {
+export const Search: React.FC = () => {
   const [value, setValue] = React.useState('');
   const {setSearchValue} = React.useContext(SearchContext);  
   
@@ -57,4 +57,3 @@ const Search: React.FC = () => {
   );
 };
 
-export default Search;

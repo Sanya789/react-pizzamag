@@ -16,7 +16,7 @@ type PizzaBlockProps = {
   rating: number;
 }
 
- const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
+export const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
   const cartItem = useSelector((state: any) => state.cart.items.find((obj: { id: string; }) => obj.id === id));
   const [activeType, setActiveType] = React.useState(0);
@@ -88,4 +88,3 @@ type PizzaBlockProps = {
   );
 }
 
-export default PizzaBlock;

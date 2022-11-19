@@ -25,7 +25,7 @@ export const sortList: SortItem[] = [
 
 
 
-const Sort: React.FC = () => {
+export const Sort: React.FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state: TRootState) => state.filter.sort);
   const sortRef = React.useRef<HTMLDivElement>(null);
@@ -85,4 +85,3 @@ const Sort: React.FC = () => {
   );
 }
 
-export default Sort;

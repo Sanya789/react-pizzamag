@@ -2,10 +2,10 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import pizzaLogo from '../assets/img/pizza-logo.svg';
-import Search from './Seacrh/Search';
+import {Search} from '../components';
 import { TRootState } from '../redux/store';
 
-export default function Header() {
+export const Header: React.FC = () => {
   const { items, totalPrice } = useSelector((state: TRootState) => state.cart);
   const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
   const location = useLocation()

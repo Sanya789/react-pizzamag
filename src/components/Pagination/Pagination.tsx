@@ -22,3 +22,4 @@ export const Pagination: React.FC<PaginationProps> = ({onPageChange, currentPage
     />
   );
 };
+

@@ -2,12 +2,7 @@ import React from 'react';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-import Categories from '../components/Categories';
-import Sort from '../components/Sort';
-import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
-import Skeleton from '../components/PizzaBlock/Skeleton';
-import { Pagination } from '../components/Pagination/Pagination';
+import { Skeleton, PizzaBlock, Categories, Sort, Pagination } from '../components'
 import { SearchContext } from '../layouts/MainLayout';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/filter/slice';
 import { sortList } from '../components/Sort';
@@ -22,9 +17,7 @@ const Home: React.FC = () => {
   const isMounted = React.useRef(false);
   const { categoryId, sort, currentPage } = useSelector((state:any) => state.filter);
   const { items, status } = useSelector((state:TRootState) => state.pizza);
-
   const sortType = sort.sortProperty;
-
   const { searchValue } = React.useContext(SearchContext);
 
 
