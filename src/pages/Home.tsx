@@ -9,9 +9,10 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { Pagination } from '../components/Pagination/Pagination';
 import { SearchContext } from '../layouts/MainLayout';
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/filter/slice';
 import { sortList } from '../components/Sort';
-import { fetchPizzas, TFetchPizzasArgs } from '../redux/slices/pizzaSlice';
+import { fetchPizzas  } from '../redux/pizza/slice';
+import { TFetchPizzasArgs  } from '../redux/pizza/types';
 import { TRootState, useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
